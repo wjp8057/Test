@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="<?php echo base_url().'style/admin/css/public.css' ?>" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="<?=base_url().'org/ueditor/ueditor.all.js'?>"></script>
+<script type="text/javascript" src="<?=base_url().'org/ueditor/ueditor.config.js'?>"></script>
+<link rel="stylesheet" href="<?=base_url().'org/ueditor/themes/default/css/ueditor.css'?>"/>
+<title>修改文章</title>
+
+<script type="text/javascript">
+	 	window.UEDITOR_HOME_URL = "<?php echo base_url().'org/ueditor' ?>";  //相对路径自己根据路径改
+		window.onload = function() {
+			window.UEDITOR_CONFIG.initialFrameWidth = 900;
+			window.UEDITOR_CONFIG.initialFrameHeight = 600;
+	   		UE.getEditor("content");
+		} 
+</script>
+
+<style>
+	span{color:red}
+</style>
+</head>
+<body>
+	<form action="<?php echo site_url().'/admin/article/edit' ?>" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="aid" value="<?php echo $editArt[0]['aid'] ?>"/>
+		<table class="table">
+			<tr>
+				<td class="th" colspan="10">修改文章</td>
+			</tr>
+			<tr>
+				<td>标题</td>
+				<td><input type="text" name="title" value="<?php echo $editArt[0]['title'] ?>"/>
+					<?php echo form_error('title','<span>','</span>') ?>
+				</td>
+			</tr>
+			<tr>
+				<td>类型</td>
+				<td>
+					<input type="radio" value="0" name="type" checked="checked"/> 普通
+					<input type="radio" value="1" name="type"/> 热门
+				</td>
+			</tr>
+			<tr>
+				<td>栏目</td>
+				<td>					
+					<select name="cid" id="">
+						<?php foreach($cate as $v): ?>
+							<option value="<?php echo $v['cid'] ?>"><?php echo $v['cname'] ?></option>
+						<?php endforeach ?>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>缩略图</td>
+				<td>
+					<input type="file" name="thumb"/>
+				</td>
+			</tr>
+			<tr>
+				<td>摘要</td>
+				<td>
+					<textarea name="info" id="" style="width:550px;height:160px;"><?php echo $editArt[0]['info'] ?></textarea>
+					<?php echo form_error('info','<span>','</span>') ?>
+				</td>
+			</tr>
+			<tr>
+				<td>内容</td>
+				<td>
+					<textarea name="content" id="content" style="width: 550px;height: 500px"><?php echo $editArt[0]['content'] ?></textarea>
+					<?php echo form_error('content','<span>','</span>') ?>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="10">
+					<input type="submit" class="input_button" value="发布">
+				</td>
+			</tr>
+		</table>
+	</form>
+</body>
+</html>
